@@ -1,0 +1,14 @@
+{
+  "produtos": [
+    {
+      "description": "Fazer compras",
+      "isChecked": false,
+      "id": 1
+    },
+    {
+      "description": "Arrumar o quarto",
+      "isChecked": true,
+      "id": 2
+    }
+  ]
+}

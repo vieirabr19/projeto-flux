@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+
 import './App.css';
+import List from './views/components/list';
+import * as Services from './data/services/ProdutoService';
 
 function App() {
+  const [itens, setItens] = useState([]);
+
+  useEffect(() => {
+    list();
+  },[]);
+
+  const list = async () => {
+    const list = await Services.list();
+    setItens(list);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <List itens={itens} />
     </div>
   );
 }
