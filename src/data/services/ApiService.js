@@ -22,7 +22,7 @@ export function create(endpoint, data){
 }
 
 export function update(endpoint, data){
-  return fetch(`${url}/${endpoint}`, {
+  return fetch(`${url}/${endpoint}/${data.id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
@@ -35,6 +35,9 @@ export function update(endpoint, data){
 export function remove(endpoint, id){
   return fetch(`${url}/${endpoint}/${id}`, {
     method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
   })
   .then(response => response.json());
 }
