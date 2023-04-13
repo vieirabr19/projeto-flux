@@ -9,10 +9,6 @@ import NewItem from './views/components/newItem';
 function App() {
   const [list, setList] = useState([]);
 
-  useEffect(() => {
-    getList();
-  },[]);
-
   const getList = async () => {
     const list = await Services.list();
     setList(list);
@@ -47,10 +43,37 @@ function App() {
     Services.update(newItem);
   }
 
+  const clear = () => {
+    const done = [];
+    const newList = [];
+
+    list.forEach(item => {
+      item.isChecked ? done.push(item) : newList.push(item);
+    });
+
+    done.forEach(item => remove(item.id));
+    setList(newList);
+  }
+
+  const checkAll = (e) => {
+    list.forEach(item => e ? item.isChecked = true : item.isChecked = false);
+    setList([...list]);
+  }
+
+  useEffect(() => {
+    getList();
+  },[]);
+
   return (
     <div className="App">
       <NewItem onAdd={add} />
       <hr />
+      <button type="button" className="tw-btn" onClick={clear}>Remover selecionados</button>
+      <hr />
+      <label className="allCheck">
+        <input type='checkbox' className='tw-check' onChange={(e) => checkAll(e.target.checked)} />
+        <span>Selecionar todos</span>
+      </label>
       <List list={list} onRemove={remove} onUpdate={update} />
     </div>
   );

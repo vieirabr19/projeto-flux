@@ -1,6 +1,12 @@
+import { useEffect } from 'react';
 import ListItem from './listItem';
 
 export default function List({list, onRemove, onUpdate}){
+  
+  useEffect(() => {
+    console.log(list);
+  }, [list])
+
   return (
     <ul>
       {list && list.length === 0 && <div>No itens</div>}

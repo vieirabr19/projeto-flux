@@ -1,14 +1,19 @@
 {
   "produtos": [
     {
-      "description": "Item 1 alterado",
+      "description": "Item 1",
       "isChecked": false,
       "id": 1
     },
     {
+      "description": "Item 2",
+      "isChecked": false,
+      "id": 2
+    },
+    {
       "description": "Item 3",
-      "isChecked": true,
-      "id": 6
+      "isChecked": false,
+      "id": 3
     }
   ]
 }
