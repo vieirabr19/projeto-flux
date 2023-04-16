@@ -8,6 +8,7 @@ import NewItem from './views/components/newItem';
 
 function App() {
   const [list, setList] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
 
   const getList = async () => {
     const list = await Services.list();
@@ -41,6 +42,8 @@ function App() {
     list[indexItem] = newItem;
     setList(list);
     Services.update(newItem);
+
+    setChecked();
   }
 
   const clear = () => {
@@ -55,14 +58,27 @@ function App() {
     setList(newList);
   }
 
-  const checkAll = (e) => {
+  const checkAllChange = (e) => {
     list.forEach(item => e ? item.isChecked = true : item.isChecked = false);
     setList([...list]);
+  }
+
+  const isCheckedAll = (arr) => {
+    return arr.every(item => item.isChecked === true);
+  }
+
+  const setChecked = () => {
+    const check = isCheckedAll(list);
+    setIsChecked(check);
   }
 
   useEffect(() => {
     getList();
   },[]);
+
+  useEffect(() => {
+    setChecked();
+  });
 
   return (
     <div className="App">
@@ -71,7 +87,7 @@ function App() {
       <button type="button" className="tw-btn" onClick={clear}>Remover selecionados</button>
       <hr />
       <label className="allCheck">
-        <input type='checkbox' className='tw-check' onChange={(e) => checkAll(e.target.checked)} />
+        <input type='checkbox' className='tw-check' checked={isChecked} onChange={(e) => checkAllChange(e.target.checked)} />
         <span>Selecionar todos</span>
       </label>
       <List list={list} onRemove={remove} onUpdate={update} />

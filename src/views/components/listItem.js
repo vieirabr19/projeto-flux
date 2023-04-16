@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const ListItem = ({item, onRemove, onUpdate}) => {
   const inputRef = useRef();
@@ -18,6 +18,11 @@ const ListItem = ({item, onRemove, onUpdate}) => {
     item.description = inputRef.current.value;
     onUpdate(item);
   };
+
+  useEffect(() => {
+    setIsChecked(item.isChecked); 
+    onUpdate(item);
+  }, [item, onUpdate]);
 
   return (
     <li className='todo-list-item'>
